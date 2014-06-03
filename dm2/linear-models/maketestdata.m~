@@ -1,0 +1,20 @@
+function [X_test, y_test] = maketestdata( w_f , nTest )
+
+P=size(X_test, 1)
+
+X_test =[] ;
+for iter=1:nTest
+    while true
+        oneX = rand ( P , 1 ) ;
+        oneX(1)= 1;
+        oneY = w_f*oneX' ;
+       
+        if abs( oneY ) > 1E-2
+            break
+        end
+    end
+    X_test = [ X_test , oneX (2:) ];
+    Y_test = [ Y_test , oneY ] 
+end
+
+end

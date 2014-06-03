@@ -1,0 +1,13 @@
+#scale
+svm-scale.exe -l -1 -u 1 -s range1 train > train.scale
+svm-scale.exe -r range1 test > test.scale
+
+#modeling
+svm-train.exe -s 3 -p 0.0001 -t 2 -g 32 -c 0.53125 -n 0.99 -h 0 train.scale
+
+#test
+svm-predict.exe test.scale train.scale.model test.predict
+
+#grid
+python gridregression.py -s 3 -t 2 -h 0 -log2c -10,10,1 -log2g -10,10,1 -log2p 
+					-10,10,1 -v 10 train.scale > parameter
